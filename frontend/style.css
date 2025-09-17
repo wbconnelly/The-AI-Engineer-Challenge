@@ -1,0 +1,80 @@
+:root {
+  --bg: #0b1020;
+  --panel: #0f1733;
+  --text: #e5eaf5;
+  --muted: #a8b0c3;
+  --accent: #7c9fff;
+  --accent-2: #00d1b2;
+  --border: #1a2447;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, 'Helvetica Neue', Arial;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.header h1 {
+  margin: 0 0 4px 0;
+  font-size: 28px;
+}
+
+.sub { color: var(--muted); margin: 0 0 24px 0; }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.label { display:block; margin: 8px 0 6px; color: var(--muted); font-size: 14px; }
+
+input, select, textarea {
+  width: 100%;
+  background: #0a132a;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  outline: none;
+}
+
+.row { display: flex; gap: 12px; }
+.field { min-width: 200px; }
+.flex1 { flex: 1; }
+
+button {
+  margin-top: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0b1020;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.output {
+  margin-top: 16px;
+  white-space: pre-wrap;
+  background: #0a132a;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  min-height: 140px;
+}
+
+code { background: rgba(255,255,255,0.06); padding: 2px 6px; border-radius: 6px; }
+
+
