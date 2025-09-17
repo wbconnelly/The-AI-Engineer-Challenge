@@ -96,9 +96,9 @@ Happy coding! 🚀"""
 @app.get("/api/health")
 async def health_check():
     return {"status": "ok"}
-
+# test to see if this shows up in the push to git.
 # Serve static frontend files so the app is accessible at '/'
-# This should be defined after the '/api/*' routes so API paths take precedence
+#This should be defined after the '/api/*' routes so API paths take precedence
 app.mount("/", StaticFiles(directory="frontend", html=True), name="static")
 
 # Entry point for running the application directly
