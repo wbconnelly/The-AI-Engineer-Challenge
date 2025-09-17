@@ -54,6 +54,22 @@ input, select, textarea {
 .field { min-width: 200px; }
 .flex1 { flex: 1; }
 
+.checkbox-row { 
+  display: flex; 
+  align-items: center; 
+  gap: 8px; 
+  margin: 12px 0; 
+}
+.checkbox-row input[type="checkbox"] { 
+  width: auto; 
+  margin: 0; 
+}
+.checkbox-label { 
+  margin: 0; 
+  font-size: 14px; 
+  color: var(--muted); 
+}
+
 button {
   margin-top: 12px;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));

@@ -8,6 +8,7 @@ from pydantic import BaseModel
 # Import OpenAI client for interacting with OpenAI's API
 from openai import OpenAI
 import os
+import asyncio
 from typing import Optional
 
 # Initialize FastAPI application with a title
@@ -30,11 +31,40 @@ class ChatRequest(BaseModel):
     user_message: str      # Message from the user
     model: Optional[str] = "gpt-4.1-mini"  # Optional model selection with default
     api_key: str          # OpenAI API key for authentication
+    mock_mode: Optional[bool] = False  # Enable mock mode for testing without API credits
 
 # Define the main chat endpoint that handles POST requests
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
     try:
+        # Mock mode for testing without API credits
+        if request.mock_mode:
+            async def generate_mock():
+                mock_response = f"""🤖 Mock Response (No API Credits Required)
+
+You asked: "{request.user_message}"
+
+This is a simulated response since OpenAI requires prepaid credits. 
+The real API would process your request with model: {request.model}
+
+Developer context: {request.developer_message}
+
+To use the real API:
+1. Add payment method at https://platform.openai.com/settings/organization/billing/overview
+2. Purchase credits (minimum $5)
+3. Disable mock mode and try again
+
+Happy coding! 🚀"""
+                
+                # Stream the response word by word for realistic effect
+                words = mock_response.split()
+                for i, word in enumerate(words):
+                    yield word + (" " if i < len(words) - 1 else "")
+                    await asyncio.sleep(0.1)  # Small delay between words
+            
+            return StreamingResponse(generate_mock(), media_type="text/plain")
+        
+        # Real API mode
         # Initialize OpenAI client with the provided API key
         client = OpenAI(api_key=request.api_key)
         

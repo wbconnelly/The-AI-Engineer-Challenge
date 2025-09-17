@@ -2,6 +2,7 @@ const apiKeyInput = document.getElementById('apiKey');
 const modelSelect = document.getElementById('model');
 const developerInput = document.getElementById('developer');
 const userTextarea = document.getElementById('user');
+const mockModeCheckbox = document.getElementById('mockMode');
 const sendBtn = document.getElementById('sendBtn');
 const outputEl = document.getElementById('output');
 
@@ -18,9 +19,10 @@ async function sendMessage() {
   const model = modelSelect.value.trim();
   const developer_message = developerInput.value.trim();
   const user_message = userTextarea.value.trim();
+  const mock_mode = mockModeCheckbox.checked;
 
-  if (!apiKey) {
-    alert('Please enter your OpenAI API key.');
+  if (!mock_mode && !apiKey) {
+    alert('Please enter your OpenAI API key or enable Mock Mode.');
     return;
   }
   if (!user_message) {
@@ -36,7 +38,7 @@ async function sendMessage() {
     const resp = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ api_key: apiKey, model, developer_message, user_message }),
+      body: JSON.stringify({ api_key: apiKey, model, developer_message, user_message, mock_mode }),
     });
 
     if (!resp.ok || !resp.body) {
