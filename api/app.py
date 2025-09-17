@@ -2,6 +2,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 # Import Pydantic for data validation and settings management
 from pydantic import BaseModel
 # Import OpenAI client for interacting with OpenAI's API
@@ -65,6 +66,10 @@ async def chat(request: ChatRequest):
 @app.get("/api/health")
 async def health_check():
     return {"status": "ok"}
+
+# Serve static frontend files so the app is accessible at '/'
+# This should be defined after the '/api/*' routes so API paths take precedence
+app.mount("/", StaticFiles(directory="frontend", html=True), name="static")
 
 # Entry point for running the application directly
 if __name__ == "__main__":
